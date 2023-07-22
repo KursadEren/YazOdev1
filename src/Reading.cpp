@@ -20,7 +20,7 @@ void Reading :: readline() {
     string str;
     int index = 0;
     cout << endl;
-    cout<< "Merhaba"<<endl;
+   
     while (getline(file, token)) {
         istringstream ss(token);
         while (getline(ss, str, ' ')) {

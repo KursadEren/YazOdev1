@@ -8,20 +8,23 @@ using namespace std;
 
 class NumberList {
   private:
-    string List;
+    
     int LineCount;
     struct Node {
         int data;
         Node* Up;
         Node* Down;
-        Node(int val) : data(val), Up(NULL),Down(NULL) {}
+        Node(int val) : data(val), Up(nullptr), Down(nullptr) {}
     };
 
     Node* onesHead; // Birler basamağı için aşağı yönlü bağlı listenin başı
     Node* tensHead; // Onlar basamağı için yukarı yönlü bağlı listenin başı
     NumberList** Lines;
+  
     friend class Reading;
 public:
+  void AddUpNode(int value, Node* &head);
+     void AddDownNode(int value, Node* &head);
     NumberList(int value);
     ~NumberList();
     void StringAdd(string str);

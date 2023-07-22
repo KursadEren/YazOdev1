@@ -1,12 +1,17 @@
 #include "NumberList.hpp"
 
+
 NumberList::NumberList(int value) {
-    this->List = "";
+   
     this->LineCount = value;
-    this->Lines = NULL;
-    onesHead = NULL;
-    tensHead = NULL;
+    Lines = new NumberList*[value]; // 'Lines' dizisini 'value' kadar elemanla oluşturun
+    for (int i = 0; i < value; i++) {
+        Lines[i] = nullptr; // Her elemanı başlangıçta nullptr yapın
+    }
+    onesHead = nullptr; 
+    tensHead = nullptr; 
 }
+
 
 
 
@@ -20,42 +25,43 @@ void NumberList::StringAdd(string str) {
     int number = stoi(str);
     int oneDigit = number / 10; 
     int twoDigit = number % 10;
-    AddUpList  (oneDigit);
+    AddUpList(oneDigit);
     AddDownList(twoDigit);
      
     
 }
 
 void NumberList::AddUpList(int value){
-   
+    AddUpNode(value, onesHead);
+}
+
+void NumberList::AddUpNode(int value, Node* &head) {
     Node* new_node = new Node(value);
-     
-    if (onesHead == NULL) {
-            
-            onesHead = new_node;
-            
-        } else {
-            
-            Node* current = onesHead;
-            while (current->Up != NULL) {
-                current = current->Up;
-            }
-            current->Up = new_node;
+    if (head == nullptr) {
+        head = new_node;
+    } else {
+        Node* current = head;
+        while (current->Up != nullptr) {
+            current = current->Up;
         }
-  
+        current->Up = new_node;
+    }
 }
 void NumberList::AddDownList(int value){
+    AddDownNode(value, tensHead);
+}
 
-         Node* new_node = new Node(value);
-    if (tensHead == nullptr) {
-            tensHead = new_node;
-        } else {
-            Node* current = tensHead;
-            while (current->Down != nullptr) {
-                current = current->Down;
-            }
-            current->Down = new_node;
+void NumberList::AddDownNode(int value, Node* &head) {
+    Node* new_node = new Node(value);
+    if (head == nullptr) {
+        head = new_node;
+    } else {
+        Node* current = head;
+        while (current->Down != nullptr) {
+            current = current->Down;
         }
+        current->Down = new_node;
+    }
 }
 void NumberList::AddUpListPrint(){
     int count = this->LineCount;

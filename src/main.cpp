@@ -4,12 +4,9 @@
 int main() {
     // "Veri.txt" dosyasının adını burada gösterildiği gibi değiştirin
     Reading* read = new Reading("Veri.txt");
-     cout << "Hey";
-    NumberList* Number = new NumberList(read->linecount());
-     cout << "Hey1";
-    read->readline();
-     cout << "Hey2";
    
+    NumberList* Number = new NumberList(read->linecount());
+    read->readline();
     Number = read->GetNumberlist();
 
 }
