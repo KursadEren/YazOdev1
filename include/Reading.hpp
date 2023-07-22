@@ -11,12 +11,13 @@ class Reading {
     private:
     NumberList ** line;
     string filename;
+    int LineCount;
     public:
     Reading(string filename);
     int linecount();
-    NumberList** readline();
+    void readline();
     ~Reading();
-
+    NumberList* GetNumberlist();
 };
 
 #endif

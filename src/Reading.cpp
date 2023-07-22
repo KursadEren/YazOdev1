@@ -2,32 +2,39 @@
 #include "NumberList.hpp"
 
 Reading :: Reading(string filename) {
-    this->filename = filename;
-
-    int count = linecount();
-
+     int count = linecount();
+     this->filename = filename;
+     this->LineCount = count;
     // Bellekte dizi oluşturun
     this->line = new NumberList*[count];
     for (int i = 0; i < count; i++) {
-        this->line[i] = new NumberList();
+        this->line[i] = new NumberList(count);
     }
 }
 
-
-NumberList** Reading :: readline() {
+void Reading :: readline() {
     string token;
     int i = 0;
+   
     ifstream file(this->filename);
     string str;
     int index = 0;
+    cout << endl;
+    cout<< "Merhaba"<<endl;
     while (getline(file, token)) {
         istringstream ss(token);
-
-        this->line[i]->StringAdd(token);
+        while (getline(ss, str, ' ')) {
+             
+        this->line[i]->StringAdd(str);
+         
+         
+        }
         i++;
     }
+    
     file.close();
-    return line; // Eğer NumberList döndürmek istiyorsanız uygun bir dönüş değeri verin.
+    
+    // Eğer NumberList döndürmek istiyorsanız uygun bir dönüş değeri verin.
 }
 
 int Reading :: linecount() {
@@ -41,6 +48,17 @@ int Reading :: linecount() {
     return counter;
 }
 
+NumberList* Reading::GetNumberlist() {
+    NumberList* list = new NumberList(this->LineCount); // NumberList nesnesi oluşturuyoruz
+
+    // NumberList nesnesinin Lines üye değişkenine oluşturulan işaretçi dizisini atıyoruz
+    list->Lines = line;
+
+    return list; // NumberList nesnesini döndür
+}
+
+
+
 Reading :: ~Reading() {
     int count = linecount();
     for (int i = 0; i < count; i++) {
@@ -49,6 +67,3 @@ Reading :: ~Reading() {
     delete[] this->line; // Bellek sızıntısını önlemek için line dizisini serbest bırakın
 }
 
-void NumberList::PrintList() {
-    cout << "List: " << List << endl;
-}
