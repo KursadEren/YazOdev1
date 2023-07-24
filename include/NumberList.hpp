@@ -17,14 +17,18 @@ class NumberList {
         Node(int val) : data(val), Up(nullptr), Down(nullptr) {}
     };
 
-    Node* onesHead; // Birler basamağı için aşağı yönlü bağlı listenin başı
+   Node* onesHead; // Birler basamağı için aşağı yönlü bağlı listenin başı
     Node* tensHead; // Onlar basamağı için yukarı yönlü bağlı listenin başı
+
+    //...
+
+    void AddUpNode(int value, Node* &head);
+    void AddDownNode(int value, Node* &head);
     NumberList** Lines;
-  
+    void DestroyNodes(Node* head);
     friend class Reading;
 public:
-  void AddUpNode(int value, Node* &head);
-     void AddDownNode(int value, Node* &head);
+  
     NumberList(int value);
     ~NumberList();
     void StringAdd(string str);

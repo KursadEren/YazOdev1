@@ -16,7 +16,15 @@ NumberList::NumberList(int value) {
 
 
 NumberList::~NumberList() {
-    // Implement destructor logic if needed.
+    // 'onesHead' ve 'tensHead' düğümlerini silmek için yardımcı işlevi çağırın
+    DestroyNodes(onesHead);
+    DestroyNodes(tensHead);
+
+    // Bellekte dinamik olarak oluşturulan 'Lines' dizisini temizleyin
+    for (int i = 0; i < LineCount; i++) {
+        delete Lines[i];
+    }
+    delete[] Lines;
 }
 
 void NumberList::StringAdd(string str) {
@@ -25,9 +33,11 @@ void NumberList::StringAdd(string str) {
     int number = stoi(str);
     int oneDigit = number / 10; 
     int twoDigit = number % 10;
+     cout << "Hey0"<<endl;
     AddUpList(oneDigit);
+    cout << "Hey1"<<endl;
     AddDownList(twoDigit);
-     
+      cout << "Hey2"<<endl;
     
 }
 
@@ -35,34 +45,11 @@ void NumberList::AddUpList(int value){
     AddUpNode(value, onesHead);
 }
 
-void NumberList::AddUpNode(int value, Node* &head) {
-    Node* new_node = new Node(value);
-    if (head == nullptr) {
-        head = new_node;
-    } else {
-        Node* current = head;
-        while (current->Up != nullptr) {
-            current = current->Up;
-        }
-        current->Up = new_node;
-    }
-}
 void NumberList::AddDownList(int value){
     AddDownNode(value, tensHead);
 }
 
-void NumberList::AddDownNode(int value, Node* &head) {
-    Node* new_node = new Node(value);
-    if (head == nullptr) {
-        head = new_node;
-    } else {
-        Node* current = head;
-        while (current->Down != nullptr) {
-            current = current->Down;
-        }
-        current->Down = new_node;
-    }
-}
+
 void NumberList::AddUpListPrint(){
     int count = this->LineCount;
     for(int i = 0 ; i<count ; i++)
@@ -80,3 +67,40 @@ void NumberList::AddUpListPrint(){
 void NumberList::AddDownListPrint(){
 
 }
+void NumberList::DestroyNodes(Node* head) {
+    while (head) {
+        Node* temp = head;
+        head = head->Up; // Aşağı yönlü bağlı liste için 'Up' kullanıyoruz
+        delete temp;
+    }
+}
+
+
+
+void NumberList::AddUpNode(int value, Node* &head) {
+    Node* new_node = new Node(value);
+    if (head == nullptr) {
+        head = new_node;
+    } else {
+        Node* current = head;
+        while (current->Up != nullptr) {
+            current = current->Up;
+        }
+        cout << current->data<<endl; 
+        current->Up = new_node;
+    }
+}
+
+void NumberList::AddDownNode(int value, Node* &head) {
+    Node* new_node = new Node(value);
+    if (head == nullptr) {
+        head = new_node;
+    } else {
+        Node* current = head;
+        while (current->Down != nullptr) {
+            current = current->Down;
+        }
+        current->Down = new_node;
+    }
+}
+
