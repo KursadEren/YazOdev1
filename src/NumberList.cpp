@@ -79,24 +79,29 @@ void NumberList::DestroyNodes(Node* head) {
 
 void NumberList::AddUpNode(int value, Node* &head) {
     Node* new_node = new Node(value);
-    if (head == nullptr) {
-        head = new_node;
+    cout<< onesHead ;
+    if (onesHead == nullptr) {
+        
+        onesHead = new_node;
+         
     } else {
-        Node* current = head;
+        cout << "hey"<<endl; 
+        Node* current = onesHead;
         while (current->Up != nullptr) {
             current = current->Up;
         }
-        cout << current->data<<endl; 
+       
         current->Up = new_node;
     }
+    
 }
 
 void NumberList::AddDownNode(int value, Node* &head) {
     Node* new_node = new Node(value);
-    if (head == nullptr) {
-        head = new_node;
+    if (tensHead == nullptr) {
+        tensHead = new_node;
     } else {
-        Node* current = head;
+        Node* current = tensHead;
         while (current->Down != nullptr) {
             current = current->Down;
         }
