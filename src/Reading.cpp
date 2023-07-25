@@ -24,7 +24,7 @@ void Reading :: readline() {
     while (getline(file, token)) {
         istringstream ss(token);
         while (getline(ss, str, ' ')) {
-             
+             cout << str << endl;
         this->line[i]->StringAdd(str);
          
          
