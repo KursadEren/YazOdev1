@@ -20,7 +20,10 @@ class NumberList {
     void AddUpNode(int value, Node* head);
     void AddDownNode(int value, Node* head);
     NumberList** Lines;
-    void DestroyNodes(Node* head);
+    
+    void DestroyUpNodes(Node* head);
+    void DestroyDownNodes(Node* head);
+
     friend class Reading;
 public:
   

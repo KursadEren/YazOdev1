@@ -8,5 +8,5 @@ int main() {
     NumberList* Number = new NumberList(read->linecount());
     read->readline();
     Number = read->GetNumberlist();
-
+  
 }

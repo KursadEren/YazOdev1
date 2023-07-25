@@ -2,14 +2,17 @@
 #include "NumberList.hpp"
 
 Reading :: Reading(string filename) {
-     int count = linecount();
+     
      this->filename = filename;
-     this->LineCount = count;
-    // Bellekte dizi oluşturun
-    this->line = new NumberList*[count];
-    for (int i = 0; i < count; i++) {
-        this->line[i] = new NumberList(count);
+     this->LineCount = linecount();
+    
+    this->line = new NumberList*[linecount()];
+    for (int i = 0; i < linecount(); i++) {
+        cout << i <<endl;
+        this->line[i] = new NumberList(linecount());
+       
     }
+   
 }
 
 void Reading :: readline() {
@@ -18,13 +21,13 @@ void Reading :: readline() {
    
     ifstream file(this->filename);
     string str;
-    int index = 0;
-    cout << endl;
    
+   cout << linecount();
     while (getline(file, token)) {
         istringstream ss(token);
         while (getline(ss, str, ' ')) {
-             cout << str << endl;
+           
+             
         this->line[i]->StringAdd(str);
          
          

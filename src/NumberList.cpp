@@ -17,13 +17,14 @@ NumberList::NumberList(int value) {
 
 NumberList::~NumberList() {
     // 'onesHead' ve 'tensHead' düğümlerini silmek için yardımcı işlevi çağırın
-    DestroyNodes(onesHead);
-    DestroyNodes(tensHead);
+    DestroyUpNodes(onesHead);
+    DestroyDownNodes(tensHead);
 
     // Bellekte dinamik olarak oluşturulan 'Lines' dizisini temizleyin
     
     delete[] Lines;
 }
+
 
 void NumberList::StringAdd(string str) {
      
@@ -65,10 +66,17 @@ void NumberList::AddUpListPrint(){
 void NumberList::AddDownListPrint(){
 
 }
-void NumberList::DestroyNodes(Node* head) {
+void NumberList::DestroyUpNodes(Node* head) {
     while (head) {
         Node* temp = head;
         head = head->Up; // Aşağı yönlü bağlı liste için 'Up' kullanıyoruz
+        delete temp;
+    }
+}
+void NumberList::DestroyDownNodes(Node* head) {
+    while (head) {
+        Node* temp = head;
+        head = head->Down; // Aşağı yönlü bağlı liste için 'Up' kullanıyoruz
         delete temp;
     }
 }
@@ -78,19 +86,18 @@ void NumberList::DestroyNodes(Node* head) {
 void NumberList::AddUpNode(int value, Node* head) {
     Node* new_node = new Node(value);
     
-   
     
+ 
     if (onesHead == nullptr) {
         
         onesHead = new_node;
          
     } else {
-        
         Node* current = onesHead;
-       
-        while (current->Up != nullptr) {
           
-            current = current->Up;
+        while (current->Up != NULL) {
+           
+        current = current->Up;
         }
         
         current->Up = new_node;
@@ -108,7 +115,7 @@ void NumberList::AddDownNode(int value, Node* head) {
         tensHead = new_node;
     } else {
         Node* current = tensHead;
-        while (current->Down != nullptr) {
+        while (current->Down != NULL) {
             
             current = current->Down;
         }
