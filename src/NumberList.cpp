@@ -131,7 +131,7 @@ void NumberList::AddUpNode(int value, Node* head) {
 }
 
 
-void NumberList::AddDownNode(int value, Node* head) {
+void NumberList::AddDownNode(int value, Node* head) {   
     Node* new_node = new Node(value);
     
     
@@ -149,19 +149,178 @@ void NumberList::AddDownNode(int value, Node* head) {
    
 }
 
-double NumberList::CalculateUpListAverage(int value){
-    
- 
-}
-double NumberList::CalculateDownListAverage(int value){
+void NumberList::CalculateUpListAverage() {
+    double totalSum = 0;
+    double LineSum = 0;
+    int digits =0;
+    int nodeCount = 0;
+    int UpNodeMax = FindMaxUpNodeCount();
 
+    for (int a = 0; a < UpNodeMax; a++) {
+        LineSum = 0;
+        nodeCount = 0;
 
-}
-void NumberList::PrintUpDownCount(){
-    for(int i = 0 ; i<this->LineCount; i++)
-    {
-         cout<<i <<" "<< this->Lines[i]->DownListCount<< endl;
-         cout<<i << " " << this->Lines[i]->UpListCount<<endl;
+        for (int i = 0; i < LineCount; i++) {
+            
+                digits = FindUpNodeData(a, this->Lines[i]->onesHead);
+               
+                if(digits != -1)
+                {
+                     LineSum += digits;
+                     nodeCount++;
+                }
+               
+                
+            
+        }
+                 cout << "Digits " << digits   << " " << a  <<  " Line " << LineSum  <<endl;
+                 cout << "-----------------------------------------"<< endl;
+        totalSum += (LineSum / nodeCount);
     }
+
+    cout << totalSum << "Total sum" << endl;
+}
+
+
+void NumberList::CalculateDownListAverage() {
+    double totalSum = 0;
+    double LineSum = 0;
+    int digits =0;
+    int nodeCount = 0;
+    int UpNodeMax = FindMaxDownNodeCount();
+
+    for (int a = 0; a < UpNodeMax; a++) {
+        LineSum = 0;
+        nodeCount = 0;
+
+        for (int i = 0; i < LineCount; i++) {
+            
+                digits = FindDownNodeData(a, this->Lines[i]->tensHead);
+               
+                if(digits != -1)
+                {
+                     LineSum += digits;
+                     nodeCount++;
+                }
+               
+                
+            
+        }
+                 cout << "Digits " << digits   << " " << a  <<  " Line " << LineSum  <<endl;
+                 cout << "-----------------------------------------"<< endl;
+        totalSum += (LineSum / nodeCount);
+    }
+
+    cout << totalSum << "Total sum" << endl;
+}
+void NumberList::PrintUpDownCount() {
+    int maxDownListCount = 0;
+    int maxUpListCount = 0;
+    int maxDownListIndex = -1;
+    int maxUpListIndex = -1;
+
+    for (int i = 0; i < this->LineCount; i++) {
+        cout << "Line " << i << " DownListCount: " << this->Lines[i]->DownListCount << endl;
+        cout << "Line " << i << " UpListCount: " << this->Lines[i]->UpListCount << endl;
+
+    }
+    int i = FindMaxDownNodeCount();
+    int a =FindMaxUpNodeCount();
+    cout << i << endl;
+    cout << a<< endl;
    
+}
+int NumberList::FindMaxDownNodeCount() {
+    int maxDownListCount = 0;
+    int maxDownListIndex = -1;
+
+    for (int i = 0; i < this->LineCount; i++) {
+        if (this->Lines[i]->DownListCount > maxDownListCount) {
+            maxDownListCount = this->Lines[i]->DownListCount;
+            maxDownListIndex = i;
+        }
+    }
+
+    return maxDownListCount;
+}
+
+int NumberList::FindMaxUpNodeCount() {
+    int maxUpListCount = 0;
+    int maxUpListIndex = -1;
+
+    for (int i = 0; i < this->LineCount; i++) {
+        if (this->Lines[i]->UpListCount > maxUpListCount) {
+            maxUpListCount = this->Lines[i]->UpListCount;
+            maxUpListIndex = i;
+        }
+    }
+
+    return maxUpListCount;
+}
+
+
+int NumberList::FindUpNodeData(int value,Node *head)  
+{   
+    Node* current = head;
+    if(value==0)
+    {
+          return current->data;
+    }
+    for(int i = 0; i<value ;i++)
+    {
+        
+        current=current->Up;
+        
+    }
+         if(current == nullptr)
+         {
+            return -1;
+         }else{
+           return current->data;
+         }
+        
+}
+int  NumberList::FindDownNodeData(int value,Node *head)
+{
+        Node* current = head;
+    if(value==0)
+    {
+          return current->data;
+    }
+    for(int i = 0; i<value ;i++)
+    {
+        
+        current=current->Down;
+        
+    }
+         if(current == nullptr)
+         {
+            return -1;
+         }else{
+           return current->data;
+         }
+}
+
+void NumberList::SwipNode(int One,int Two)
+{
+        string Upstr;
+        string Downstr;
+
+      Upstr =  GetUpNodeData(Lines[One]->onesHead);
+      cout <<Upstr<< endl;
+}
+
+
+
+string NumberList::GetUpNodeData(Node* head) {
+    Node* current = head;
+    string dataString;
+
+    while (current != nullptr) {
+        dataString += to_string(current->data) + " ";
+        current = current->Up;
+    }
+
+    
+    return dataString;
 }

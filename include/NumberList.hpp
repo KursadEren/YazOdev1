@@ -35,10 +35,15 @@ public:
     void AddDownList(int value);
     void AddUpListPrint();
     void AddDownListPrint();
-    double CalculateUpListAverage  (int value);
-    double CalculateDownListAverage(int value);
+    void CalculateUpListAverage  ();
+    void CalculateDownListAverage();
     void PrintUpDownCount();
-   
+    int FindMaxUpNodeCount();
+    int FindMaxDownNodeCount();
+    int FindUpNodeData(int value,Node *head);
+    int FindDownNodeData(int value,Node *head);
+    void SwipNode(int value,int value2);
+    string GetUpNodeData(Node* head);
    
 };
 
