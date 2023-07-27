@@ -8,7 +8,7 @@ Reading :: Reading(string filename) {
     
     this->line = new NumberList*[linecount()];
     for (int i = 0; i < linecount(); i++) {
-        cout << i <<endl;
+       
         this->line[i] = new NumberList(linecount());
        
     }

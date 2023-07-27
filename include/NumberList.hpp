@@ -9,7 +9,8 @@ using namespace std;
 
 class NumberList {
   private:
-    
+    int UpListCount;
+    int DownListCount;
     int LineCount;
     
     Node* onesHead; // Birler basamağı için aşağı yönlü bağlı listenin başı
@@ -30,11 +31,15 @@ public:
     NumberList(int value);
     ~NumberList();
     void StringAdd(string str);
-    void PrintList();
     void AddUpList  (int value);
     void AddDownList(int value);
     void AddUpListPrint();
     void AddDownListPrint();
+    double CalculateUpListAverage  (int value);
+    double CalculateDownListAverage(int value);
+    void PrintUpDownCount();
+   
+   
 };
 
 #endif // NUMBERLIST_HPP
