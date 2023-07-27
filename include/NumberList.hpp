@@ -44,6 +44,7 @@ public:
     int FindDownNodeData(int value,Node *head);
     void SwipNode(int value,int value2);
     string GetUpNodeData(Node* head);
+    string GetDownNodeData(Node* head);
    
 };
 

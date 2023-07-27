@@ -20,7 +20,7 @@ NumberList::~NumberList() {
     // 'onesHead' ve 'tensHead' düğümlerini silmek için yardımcı işlevi çağırın
     for(int i = 0; i<this->LineCount; i++)
     {
-         DestroyUpNodes(this->Lines[i]->onesHead);
+         DestroyUpNodes  (this->Lines[i]->onesHead);
          DestroyDownNodes(this->Lines[i]->tensHead);
     }
    
@@ -46,13 +46,14 @@ void NumberList::StringAdd(string str) {
 }
 
 void NumberList::AddUpList(int value){
-    AddUpNode(value, onesHead);
-     
+      cout << "Birinci geçiş "<< endl;
+    AddUpNode(value, this->onesHead);
+     cout << "ikinci geçiş "<< endl;
     this->UpListCount++;
 }
 
 void NumberList::AddDownList(int value){
-    AddDownNode(value, tensHead);
+    AddDownNode(value, this->tensHead);
     this->DownListCount++;
 }
 
@@ -95,13 +96,16 @@ void NumberList::DestroyUpNodes(Node* head) {
         head = head->Up; // Aşağı yönlü bağlı liste için 'Up' kullanıyoruz
         delete temp;
     }
+    onesHead = nullptr;
 }
 void NumberList::DestroyDownNodes(Node* head) {
     while (head) {
         Node* temp = head;
         head = head->Down; 
+        cout << temp<<endl;
         delete temp;
     }
+    tensHead = nullptr;
 }
 
 
@@ -114,8 +118,9 @@ void NumberList::AddUpNode(int value, Node* head) {
     if (onesHead == nullptr) {
         
         onesHead = new_node;
-         
+         cout << "Hey";
     } else {
+        
         Node* current = onesHead;
           
         while (current->Up != NULL) {
@@ -138,7 +143,7 @@ void NumberList::AddDownNode(int value, Node* head) {
     if (tensHead == nullptr) {
         tensHead = new_node;
     } else {
-        Node* current = tensHead;
+        Node* current = head;
         while (current->Down != NULL) {
             
             current = current->Down;
@@ -301,14 +306,33 @@ int  NumberList::FindDownNodeData(int value,Node *head)
          }
 }
 
-void NumberList::SwipNode(int One,int Two)
-{
-        string Upstr;
-        string Downstr;
+void NumberList::SwipNode(int One, int Two) {
+    string Upstr = GetUpNodeData(Lines[One]->onesHead);
+    string Downstr = GetDownNodeData(Lines[Two]->tensHead);
+    
+    // Mevcut düğümleri sil
+    DestroyUpNodes(this->Lines[One]->onesHead);
+    DestroyDownNodes(this->Lines[Two]->tensHead);
+     Lines[One]->onesHead = nullptr;
+     Lines[Two]->tensHead = nullptr;
+       Lines[One]->UpListCount = 0;
+       Lines[Two]->DownListCount = 0;
+    // Upstr dizesini parse ederek düğümleri tekrar oluştur
+    istringstream ss(Downstr);
+    string value_str;
+    while (ss >> value_str) {
+        int value = stoi(value_str);
+        Lines[One]->AddUpList(value);
+    }
 
-      Upstr =  GetUpNodeData(Lines[One]->onesHead);
-      cout <<Upstr<< endl;
+    // Downstr dizesini parse ederek düğümleri tekrar oluştur
+    istringstream aa(Upstr);
+    while (aa >> value_str) {
+        int value = stoi(value_str);
+        Lines[Two]->AddDownList(value);
+    }
 }
+
 
 
 
@@ -319,6 +343,19 @@ string NumberList::GetUpNodeData(Node* head) {
     while (current != nullptr) {
         dataString += to_string(current->data) + " ";
         current = current->Up;
+    }
+
+    
+    return dataString;
+}
+
+string NumberList::GetDownNodeData(Node* head) {
+    Node* current = head;
+    string dataString;
+
+    while (current != nullptr) {
+        dataString += to_string(current->data) + " ";
+        current = current->Down;
     }
 
     

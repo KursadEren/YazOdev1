@@ -8,9 +8,8 @@ int main() {
     NumberList* Number = new NumberList(read->linecount());
     read->readline();
     Number = read->GetNumberlist();
-    Number->PrintUpDownCount();
-    Number->CalculateUpListAverage();
-    Number->CalculateDownListAverage();
+   
+   
     int number= 0;
     int number2 = 0;
     cout << "Bir sayı girin: ";
@@ -18,4 +17,7 @@ int main() {
      cout << "Bir sayı girin: ";
     cin >> number2;
     Number->SwipNode(number,number2);
-     }
+     Number->CalculateUpListAverage();
+    Number->CalculateDownListAverage();
+     
+    }
